@@ -1,0 +1,4 @@
+#!/bin/sh
+
+swig -csharp -namespace "Amrcc" -dllimport amrcc -outdir csharp -o ./libamrcc.cpp amrcc.csharp.i
+
