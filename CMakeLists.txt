@@ -1,8 +1,11 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8.11)
 project(amrcc)
 
 # Do not follow symlinks in GLOB_RECURSE
 CMAKE_POLICY(SET CMP0009 NEW)
+include(CMakeStdOpt)
+include(CMakeSymbols)
+
 file(GLOB_RECURSE AMRCC_HEADER "*.h")
 
 set(AMRCC_SRC
@@ -163,19 +166,14 @@ set(AMRCC_SRC
 
 set(PORT_SRC libamrcc.c)
 
-include_directories(./)
-include_directories(./speex)
-include_directories(./speex/include)
-include_directories(./speex/libspeex)
-
-
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fvisibility=hidden")
-
-add_definitions(-DFLOAT_POINT)
-add_definitions(-DUSE_KISS_FFT)
-add_definitions(-DHAVE_CONFIG_H)
-add_definitions(-DDISABlE_SPEEX_PREPROCESS)
 add_library(amrcc SHARED ${AMRCC_SRC} ${AMRCC_HEADER})
+
+target_compile_definitions(amrcc PRIVATE FLOAT_POINT USE_KISS_FFT HAVE_CONFIG_H DISABlE_SPEEX_PREPROCESS)
+
+target_include_directories(amrcc
+	PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+
+target_compile_options(amrcc PRIVATE "-fvisibility=hidden")
 
 install(TARGETS amrcc DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 
