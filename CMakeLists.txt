@@ -4,7 +4,6 @@ project(amrcc)
 # Do not follow symlinks in GLOB_RECURSE
 CMAKE_POLICY(SET CMP0009 NEW)
 include(CMakeStdOpt)
-include(CMakeSymbols)
 
 file(GLOB_RECURSE AMRCC_HEADER "*.h")
 
@@ -171,11 +170,16 @@ add_library(amrcc SHARED ${AMRCC_SRC} ${AMRCC_HEADER})
 target_compile_definitions(amrcc PRIVATE FLOAT_POINT USE_KISS_FFT HAVE_CONFIG_H DISABlE_SPEEX_PREPROCESS)
 
 target_include_directories(amrcc
-	PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+	PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
+	PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
+	)
 
 target_compile_options(amrcc PRIVATE "-fvisibility=hidden")
 
 install(TARGETS amrcc DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 
-add_symbols(amrcc)
+if( HAS_BREAKPAD )
+	include(CMakeSymbols)
+	add_symbols(amrcc)
+endif()
 

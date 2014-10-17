@@ -20,8 +20,8 @@
 #include "sp_dec.h"
 #include "amrdecode.h"
 #include "amrencode.h"
-#include "interf_dec.h"
-#include "interf_enc.h"
+#include "amrcc/interf_dec.h"
+#include "amrcc/interf_enc.h"
 #include <stdlib.h>
 
 #ifndef DISABlE_SPEEX_PREPROCESS

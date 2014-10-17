@@ -16,22 +16,35 @@
  * -------------------------------------------------------------------
  */
 
-#ifndef OPENCORE_AMRNB_INTERF_DEC_H
-#define OPENCORE_AMRNB_INTERF_DEC_H
+#ifndef OPENCORE_AMRNB_INTERF_ENC_H
+#define OPENCORE_AMRNB_INTERF_ENC_H
 
-#include "amr_export.h"
+#include "amrcc/amr_export.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-DLL_PUBLIC void* DecoderAmrInit(void);
-DLL_PUBLIC void DecoderAmrExit(void* state);
-DLL_PUBLIC void DecoderAmrDecodeFrame(void* state, const unsigned char* in, short* out, int bfi);
-DLL_PUBLIC int DecoderAmrDecode(void* c, const unsigned char* amr,const int amr_bytes, short* pcm, int bfi);
-DLL_PUBLIC int DecoderAmrGetFrameSize(unsigned char toc);
-DLL_PUBLIC int DecoderAmrGetSamples(const unsigned char* amr,const int amr_bytes);
-DLL_PUBLIC int DecoderAmrIsSilenceFrame(unsigned char toc);
+#ifndef AMRNB_WRAPPER_INTERNAL
+/* Copied from enc/src/gsmamr_enc.h */
+enum Mode {
+	MR475 = 0,/* 4.75 kbps */
+	MR515,    /* 5.15 kbps */
+	MR59,     /* 5.90 kbps */
+	MR67,     /* 6.70 kbps */
+	MR74,     /* 7.40 kbps */
+	MR795,    /* 7.95 kbps */
+	MR102,    /* 10.2 kbps */
+	MR122,    /* 12.2 kbps */
+	MRDTX,    /* DTX       */
+	N_MODES   /* Not Used  */
+};
+#endif
+
+DLL_PUBLIC void* EncoderAmrInit(int dtx);
+DLL_PUBLIC void EncoderAmrExit(void* state);
+DLL_PUBLIC int EncoderAmrEncode(void* c,enum Mode mode,const short* pcm,const int input_samples,unsigned char* amr, int force_speech);
+DLL_PUBLIC int EncoderAmrMaxSize(int pcm_samples,enum Mode mode);
 
 #ifdef __cplusplus
 }
