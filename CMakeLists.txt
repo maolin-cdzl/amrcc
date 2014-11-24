@@ -3,7 +3,7 @@ project(amrcc)
 
 # Do not follow symlinks in GLOB_RECURSE
 CMAKE_POLICY(SET CMP0009 NEW)
-include(CMakeStdOpt)
+include(CMakeCStdOpt)
 
 file(GLOB_RECURSE AMRCC_HEADER "*.h")
 
