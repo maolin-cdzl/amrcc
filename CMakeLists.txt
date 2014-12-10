@@ -176,7 +176,7 @@ target_include_directories(amrcc
 
 target_compile_options(amrcc PRIVATE "-fvisibility=hidden")
 
-install(TARGETS amrcc DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
+install(TARGETS amrcc LIBRARY DESTINATION ${INSTALL_LIB_DIR})
 
 if( HAS_BREAKPAD )
 	include(CMakeSymbols)
