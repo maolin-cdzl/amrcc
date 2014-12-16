@@ -39,6 +39,11 @@ extern "C" {
 
 const static int s_frame_size[16] = {13, 14, 16, 18, 20, 21, 27, 32, 6, 0, 0, 0, 0, 0, 0, 1};
 
+DLL_PUBLIC int AmrMakeComfnoFrame(unsigned char* amr,size_t size) {
+	*amr = (AMR_NO_DATA << 3) | 4;
+	return 1;
+}
+
 #ifndef DISABLE_AMRNB_DECODER
 DLL_PUBLIC void* DecoderAmrInit(void) {
 	void* ptr = NULL;

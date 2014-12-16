@@ -32,6 +32,7 @@ DLL_PUBLIC int DecoderAmrDecode(void* c, const unsigned char* amr,const int amr_
 DLL_PUBLIC int DecoderAmrGetFrameSize(unsigned char toc);
 DLL_PUBLIC int DecoderAmrGetSamples(const unsigned char* amr,const int amr_bytes);
 DLL_PUBLIC int DecoderAmrIsSilenceFrame(unsigned char toc);
+DLL_PUBLIC int AmrMakeComfnoFrame(unsigned char* amr,size_t size);
 
 #ifdef __cplusplus
 }
